@@ -1,0 +1,35 @@
+services:
+  app:
+    image: ghcr.io/ahmedlemine/foldercast:latest
+    container_name: foldercast
+    restart: unless-stopped
+
+    ports:
+      - "8123:80"
+
+    environment:
+      SECRET_KEY: "6b2nyz%w%^a_cd4guba@1ndi0)9n797(5+7-1m=fye1i=-$e=5"
+
+      # Use '*' to allow any host or specify domains/IPs
+      ALLOWED_HOSTS: "*"
+      
+      SERVER_PORT: "8123"
+      
+      # Update to match your server URL and port
+      CSRF_TRUSTED_ORIGINS: "http://gibson.kite-pauling.ts.net:8123"
+
+      ADMIN_NAME: "Shinwoo Kim"
+      ADMIN_EMAIL: "shinwookim.sk@gmail.com"
+      
+      TIME_ZONE: "America/New_York"
+
+    volumes:
+      # Folder containing your audio library
+      - ./library:/app/library
+
+      - static_volume:/app/static_cdn
+      - media_volume:/app/media
+
+volumes:
+  static_volume:
+  media_volume:
